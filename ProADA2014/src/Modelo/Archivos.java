@@ -15,7 +15,7 @@ import java.io.Serializable;
  *
  * @author Asaaf
  */
-public class Archivos implements Serializable{
+public class Archivos implements Serializable {
 
     Control control;
 
@@ -42,12 +42,12 @@ public class Archivos implements Serializable{
                 String nombreDpto = municipios_import.get(3);
                 String latitud = municipios_import.get(4);
                 String longitud = municipios_import.get(5);
-                control.municipios.add(new Municipio(codigo, nombre, codigoDpto, nombreDpto, latitud, longitud));
+                control.ciudades.add(new Ciudad(codigo, nombre, codigoDpto, nombreDpto, latitud, longitud, 0, 0));
             }
 
             departamentos_import.close();
             municipios_import.close();
-            
+
         } catch (FileNotFoundException e) {
             System.out.println("Error: " + e);
         } catch (IOException e) {
@@ -84,13 +84,13 @@ public class Archivos implements Serializable{
                 csvOutput.write("latitud");
                 csvOutput.write("longitud");
                 csvOutput.endRecord();
-                for (Municipio municipio : control.municipios) {
-                    csvOutput.write(municipio.getCodigo());
-                    csvOutput.write(municipio.getNombre());
-                    csvOutput.write(municipio.getCodigoDpto());
-                    csvOutput.write(municipio.getNombreDpto());
-                    csvOutput.write(municipio.getLatitud());
-                    csvOutput.write(municipio.getLongitud());
+                for (Ciudad municipio : control.ciudades) {
+                    csvOutput.write(municipio.codigo);
+                    csvOutput.write(municipio.nombre);
+                    csvOutput.write(municipio.codigoDpto);
+                    csvOutput.write(municipio.nombreDpto);
+                    csvOutput.write(municipio.latitud);
+                    csvOutput.write(municipio.longitud);
                     csvOutput.endRecord();
                 }
             }

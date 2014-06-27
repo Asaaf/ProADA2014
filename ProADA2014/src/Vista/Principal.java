@@ -3,9 +3,12 @@
  */
 package Vista;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
     Intro intro = new Intro(this);
     private int x;
     private int y;
+    private boolean cursor2;
 
     public Principal() {
         initComponents();
@@ -42,6 +46,8 @@ public class Principal extends javax.swing.JFrame {
         btnPedidos = new javax.swing.JButton();
         btnAumentar = new javax.swing.JButton();
         btnReducir = new javax.swing.JButton();
+        jScrollPaneMapa = new javax.swing.JScrollPane();
+        mapa1 = new Vista.Mapa();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuOpciones = new javax.swing.JMenu();
         jMenuItemMaximizar = new javax.swing.JMenuItem();
@@ -79,6 +85,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SADA");
+        setBackground(new java.awt.Color(51, 51, 51));
         setName("principal"); // NOI18N
         setUndecorated(true);
 
@@ -98,11 +105,6 @@ public class Principal extends javax.swing.JFrame {
         btnVehiculo.setFocusable(false);
         btnVehiculo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVehiculo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVehiculoActionPerformed(evt);
-            }
-        });
         jToolBarAgregar.add(btnVehiculo);
 
         btnMultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/12.png"))); // NOI18N
@@ -110,14 +112,9 @@ public class Principal extends javax.swing.JFrame {
         btnMultas.setFocusable(false);
         btnMultas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMultas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnMultas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMultasActionPerformed(evt);
-            }
-        });
         jToolBarAgregar.add(btnMultas);
 
-        btnCentrosDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/13.png"))); // NOI18N
+        btnCentrosDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/29.png"))); // NOI18N
         btnCentrosDistribucion.setToolTipText("Centros de distribución");
         btnCentrosDistribucion.setFocusable(false);
         btnCentrosDistribucion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -191,6 +188,19 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jToolBarAgregar.add(btnReducir);
+
+        javax.swing.GroupLayout mapa1Layout = new javax.swing.GroupLayout(mapa1);
+        mapa1.setLayout(mapa1Layout);
+        mapa1Layout.setHorizontalGroup(
+            mapa1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 932, Short.MAX_VALUE)
+        );
+        mapa1Layout.setVerticalGroup(
+            mapa1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 576, Short.MAX_VALUE)
+        );
+
+        jScrollPaneMapa.setViewportView(mapa1);
 
         jMenuBar.setPreferredSize(new java.awt.Dimension(182, 40));
 
@@ -278,21 +288,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemAgragarMulta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItemAgragarMulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/12.png"))); // NOI18N
         jMenuItemAgragarMulta.setText("Agregar multa");
-        jMenuItemAgragarMulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAgragarMultaActionPerformed(evt);
-            }
-        });
         jMenuEditar.add(jMenuItemAgragarMulta);
 
         jMenuItemAgregarProducto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItemAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/21.png"))); // NOI18N
         jMenuItemAgregarProducto.setText("Agregar producto");
-        jMenuItemAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemAgregarProductoActionPerformed(evt);
-            }
-        });
         jMenuEditar.add(jMenuItemAgregarProducto);
 
         jMenuItemAgregarVehiculo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -306,7 +306,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuEditar.add(jMenuItemAgregarAbastecimiento);
 
         jMenuItemAgregarDistribucion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jMenuItemAgregarDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/13.png"))); // NOI18N
+        jMenuItemAgregarDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/29.png"))); // NOI18N
         jMenuItemAgregarDistribucion.setText("Agregar centro de distribución");
         jMenuEditar.add(jMenuItemAgregarDistribucion);
 
@@ -347,12 +347,22 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemCentrosAbastecimiento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItemCentrosAbastecimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/14.png"))); // NOI18N
         jMenuItemCentrosAbastecimiento.setText("Centros de abastecimiento");
+        jMenuItemCentrosAbastecimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCentrosAbastecimientoActionPerformed(evt);
+            }
+        });
         jMenuVer.add(jMenuItemCentrosAbastecimiento);
 
         jMenuItemCentrosDistribucion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK));
         jMenuItemCentrosDistribucion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jMenuItemCentrosDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/13.png"))); // NOI18N
+        jMenuItemCentrosDistribucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Iconos/29.png"))); // NOI18N
         jMenuItemCentrosDistribucion.setText("Centros de distribución");
+        jMenuItemCentrosDistribucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCentrosDistribucionActionPerformed(evt);
+            }
+        });
         jMenuVer.add(jMenuItemCentrosDistribucion);
 
         jMenuItemCiudades.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
@@ -413,13 +423,19 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBarAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jToolBarAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(jScrollPaneMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBarAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 619, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneMapa)
+                .addContainerGap())
         );
 
         pack();
@@ -431,12 +447,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItemMaximizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMaximizarActionPerformed
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        menu.setBounds(0, 30, getWidth(), getHeight());
-        if(!jRadioButtonMenuItemVerArbolNavegacion.isSelected()){
-            menu.mapa.setBounds(20, 5, getWidth()-80, getHeight()-100);
-        }else{
-        menu.mapa.setBounds(350, 5, 720, 655);
-        }
     }//GEN-LAST:event_jMenuItemMaximizarActionPerformed
 
     private void jMenuItemMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMinimizarActionPerformed
@@ -444,58 +454,50 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemMinimizarActionPerformed
 
     private void jMenuItemRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestaurarActionPerformed
-        setExtendedState(JFrame.NORMAL);        
-        if(!jRadioButtonMenuItemVerArbolNavegacion.isSelected()){
-            menu.mapa.setBounds(20, 5, getWidth()-80, getHeight()-100);
-        }else{
-            menu.mapa.setBounds(350, 5, 605, 605);
-        }
+        setExtendedState(JFrame.NORMAL);
     }//GEN-LAST:event_jMenuItemRestaurarActionPerformed
-
-    private void jMenuItemAgragarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAgragarMultaActionPerformed
-        menu.multas.setVisible(true);
-    }//GEN-LAST:event_jMenuItemAgragarMultaActionPerformed
-
-    private void jMenuItemAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAgregarProductoActionPerformed
-       
-    }//GEN-LAST:event_jMenuItemAgregarProductoActionPerformed
 
     private void jRadioButtonMenuItemVerArbolNavegacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItemVerArbolNavegacionActionPerformed
         menu.ocultar = !jRadioButtonMenuItemVerArbolNavegacion.isSelected();
-        if(!jRadioButtonMenuItemVerArbolNavegacion.isSelected()){
-            menu.mapa.setBounds(20, 5, getWidth()-80, getHeight()-100);
-        }else{
-            menu.mapa.setBounds(350, 5, 605, 605);
-        }
     }//GEN-LAST:event_jRadioButtonMenuItemVerArbolNavegacionActionPerformed
 
-    private void btnAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarActionPerformed
-        menu.mapa.zoom(0);
-    }//GEN-LAST:event_btnAumentarActionPerformed
+    private void jMenuItemCentrosAbastecimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCentrosAbastecimientoActionPerformed
+        menu.centrosAbastecimiento.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCentrosAbastecimientoActionPerformed
 
-    private void btnReducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReducirActionPerformed
-        menu.mapa.zoom(1);
-    }//GEN-LAST:event_btnReducirActionPerformed
-
-    private void btnVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculoActionPerformed
-        menu.ocultarFormularios();
-        menu.vehiculos.setVisible(true);
-    }//GEN-LAST:event_btnVehiculoActionPerformed
-
-    private void btnMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultasActionPerformed
-        menu.ocultarFormularios();
-        menu.multas.setVisible(true);
-    }//GEN-LAST:event_btnMultasActionPerformed
+    private void jMenuItemCentrosDistribucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCentrosDistribucionActionPerformed
+        menu.centrosDistribucion.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCentrosDistribucionActionPerformed
 
     private void btnCentrosDistribucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentrosDistribucionActionPerformed
-        menu.ocultarFormularios();
-        menu.centrosDistribucion.setVisible(true);
+        if (!cursor2) {
+            cambiarCursor("Imagenes/Iconos/27.png");
+            cursor2 = true;
+            mapa1.ubicarCentroDist(cursor2);
+        } else {
+            cambiarCursor("default");
+            cursor2 = false;
+        }
     }//GEN-LAST:event_btnCentrosDistribucionActionPerformed
 
     private void btnCentrosAbastecimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentrosAbastecimientoActionPerformed
-        menu.ocultarFormularios();
-        menu.centrosAbastecimiento.setVisible(true);
+        if (!cursor2) {
+            cambiarCursor("Imagenes/Iconos/28.png");
+            cursor2 = true;
+            mapa1.ubicarCentroAbast(cursor2);
+        } else {
+            cambiarCursor("default");
+            cursor2 = false;
+        }
     }//GEN-LAST:event_btnCentrosAbastecimientoActionPerformed
+
+    private void btnAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarActionPerformed
+        mapa1.aumentar();
+    }//GEN-LAST:event_btnAumentarActionPerformed
+
+    private void btnReducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReducirActionPerformed
+        mapa1.reducir();
+    }//GEN-LAST:event_btnReducirActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -549,13 +551,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuOpciones;
     private javax.swing.JMenu jMenuVer;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItemVerArbolNavegacion;
+    private javax.swing.JScrollPane jScrollPaneMapa;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar jToolBarAgregar;
+    public Vista.Mapa mapa1;
     // End of variables declaration//GEN-END:variables
     private void initScreen() {
+        getContentPane().setBackground(Color.GRAY);
+        mapa1.setVisible(false);
+        mapa1.control = menu.ciudades.control;
         intro.setBounds(0, 0, 1200, 700);
-        menu.setBounds(0, 30, 1200, 700);
+        menu.setBounds(0, 32, 300, 700);
         menu.setVisible(false);
         intro.setVisible(true);
         this.add(menu);
@@ -594,6 +601,17 @@ public class Principal extends javax.swing.JFrame {
                 this_mouseDragged(evt);
             }
         });
+    }
+
+    public void cambiarCursor(String rutaImg) {
+        if (!rutaImg.equals("default")) {
+            Image im = Toolkit.getDefaultToolkit().createImage(getClass().getResource(rutaImg));
+            Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(30, 30), "pin01");
+            setCursor(cur);
+            cursor2 = true;
+        } else {
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
     }
 
 }

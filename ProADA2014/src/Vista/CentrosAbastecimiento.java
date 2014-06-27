@@ -37,7 +37,7 @@ public class CentrosAbastecimiento extends javax.swing.JPanel {
 
         Contenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jLabel1.setText("Agregar centro de abastecimiento");
+        jLabel1.setText("Centros de abastecimiento");
 
         javax.swing.GroupLayout ContenedorLayout = new javax.swing.GroupLayout(Contenedor);
         Contenedor.setLayout(ContenedorLayout);
@@ -46,7 +46,7 @@ public class CentrosAbastecimiento extends javax.swing.JPanel {
             .addGroup(ContenedorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
         ContenedorLayout.setVerticalGroup(
             ContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

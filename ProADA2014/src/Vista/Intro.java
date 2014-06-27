@@ -3,6 +3,7 @@
  */
 package Vista;
 
+import Vista.Principal;
 import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,10 +63,11 @@ public class Intro extends javax.swing.JPanel implements Runnable {
     @Override
     public void run() {
         try {            
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             setVisible(false);
             principal.menu.setVisible(true);
             principal.jMenuBar.setVisible(true);
+            principal.mapa1.setVisible(true);
         } catch (InterruptedException ex) {
             Logger.getLogger(Intro.class.getName()).log(Level.SEVERE, null, ex);
         }
